@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { WelcomeStep } from '../components/steps/WelcomeStep';
+import { WelcomeStep } from '../src/components/steps/WelcomeStep';
 
 export default function Home() {
   return (
