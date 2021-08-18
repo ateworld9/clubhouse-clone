@@ -1,27 +1,33 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
+import Axios from '../../../core/axios';
+
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
-import { StepInfo } from '../../StepInfo';
-import Axios from '../../../core/axios';
+import { StepInfo } from '../StepInfo';
 
 import styles from './EnterPhoneStep.module.scss';
 
-export const EnterCodeStep = () => {
+export const EnterCodeStep: React.FC = () => {
   const router = useRouter();
+
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [codes, setCodes] = React.useState(['', '', '', '']);
+
   const nextDisabled = codes.some((v) => !v);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const index = Number(event.target.getAttribute('id'));
     const value = event.target.value;
+
     setCodes((prev) => {
       const newArr = [...prev];
       newArr[index] = value;
       return newArr;
     });
+
     if (event.target.nextSibling) {
       (event.target.nextSibling as HTMLInputElement).focus();
     }
@@ -35,23 +41,19 @@ export const EnterCodeStep = () => {
     } catch (error) {
       alert('Ошибка при активации!');
     }
-
-    setIsLoading(false);
+    setIsLoading(false);  
   };
 
   return (
     <div className={styles.block}>
       {!isLoading ? (
         <>
-          <StepInfo
-            icon="/static/numbers.png"
-            title="Enter your activate code"
-          />
+          <StepInfo icon="/static/numbers.png" title="Enter your activate code" />
           <WhiteBlock className={clsx('m-auto mt-30', styles.whiteBlock)}>
             <div className={clsx('mb-30', styles.codeInput)}>
               {codes.map((code, index) => (
                 <input
-                  key={index}
+                  key={`${index}-code`}
                   type="tel"
                   placeholder="X"
                   maxLength={1}

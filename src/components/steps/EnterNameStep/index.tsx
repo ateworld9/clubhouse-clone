@@ -1,11 +1,30 @@
+import React from 'react';
 import clsx from 'clsx';
-import styles from './EnterNameStep.module.scss';
+
+import { StepsContext } from '../../../../pages';
 
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
-import { StepInfo } from '../../StepInfo';
+import { StepInfo } from '../StepInfo';
 
-export const EnterNameStep = () => {
+import styles from './EnterNameStep.module.scss';
+
+export const EnterNameStep: React.FC = () => {
+  const { onNextStep } = React.useContext(StepsContext);
+
+  const [fullname, setFullname] = React.useState<string>('');
+  const nextDisabled = !fullname;
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setFullname(() => event.target.value);
+  };
+
+  const onClickNextStep = () => {
+    if (!nextDisabled) {
+      onNextStep();
+    }
+  };
+
   return (
     <div className={styles.block}>
       <StepInfo
@@ -15,9 +34,9 @@ export const EnterNameStep = () => {
       />
       <WhiteBlock className={clsx('m-auto', styles.whiteBlock)}>
         <div className="mb-30">
-          <input className="field" placeholder="Enter fullname" />
+          <input value={fullname} onChange={handleChange} className="field" placeholder="Enter fullname" />
         </div>
-        <Button>
+        <Button disabled={nextDisabled} onClick={onClickNextStep}>
           Next
           <img className="d-ib ml-10" src="/static/arrow.svg" />
         </Button>

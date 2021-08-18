@@ -1,26 +1,27 @@
+import React from 'react';
+
+import { StepsContext } from '../../../../pages';
+
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
 
 import styles from './WelcomeStep.module.scss';
 
-export const WelcomeStep = () => {
+export const WelcomeStep: React.FC = () => {
+  const { onNextStep } = React.useContext(StepsContext);
+
   return (
     <WhiteBlock className={styles.block}>
       <h3 className={styles.title}>
-        <img
-          className={styles.handWaveImg}
-          src="/static/hand-wave.png"
-          alt="Celebration"
-        />
+        <img className={styles.handWaveImg} src="/static/hand-wave.png" alt="Celebration" />
         Welcome to Clubhouse!
       </h3>
       <p>
-        We're working hard to get Clubhouse ready for everyone! While we wrap up
-        the finishing youches, we're adding people graduallyto make nothing
-        breaks :)
+        We're working hard to get Clubhouse ready for everyone! While we wrap up the finishing youches, we're adding
+        people graduallyto make nothing breaks :)
       </p>
       <div>
-        <Button>
+        <Button onClick={onNextStep}>
           Get your username
           <img className="d-ib ml-10" src="static/arrow.svg" />
         </Button>

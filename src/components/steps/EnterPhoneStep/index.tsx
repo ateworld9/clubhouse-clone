@@ -1,20 +1,22 @@
 import React from 'react';
 import clsx from 'clsx';
 import NumberFormat from 'react-number-format';
+
+import { StepsContext } from '../../../../pages';
+
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
-import { StepInfo } from '../../StepInfo';
+import { StepInfo } from '../StepInfo';
 
 import styles from './EnterPhoneStep.module.scss';
-import { MainContext } from '../../../pages';
 
 type InputValueState = {
   formattedValue: string;
   value: string;
 };
 
-export const EnterPhoneStep = () => {
-  const { onNextStep } = React.useContext(MainContext);
+export const EnterPhoneStep: React.FC = () => {
+  const { onNextStep } = React.useContext(StepsContext);
   const [values, setValues] = React.useState<InputValueState>({} as InputValueState);
 
   const nextDisabled = !values.formattedValue || values.formattedValue.includes('_');
@@ -43,8 +45,7 @@ export const EnterPhoneStep = () => {
           <img className="d-ib ml-10" src="/static/arrow.svg" />
         </Button>
         <p className={clsx(styles.policyText, 'mt-30')}>
-          By entering your number, you’re agreeing to our Terms of Service and Privacy Policy.
-          Thanks!
+          By entering your number, you’re agreeing to our Terms of Service and Privacy Policy. Thanks!
         </p>
       </WhiteBlock>
     </div>

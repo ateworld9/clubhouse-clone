@@ -10,11 +10,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <title>Clubhouse: Drop-in audio chat</title>
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
