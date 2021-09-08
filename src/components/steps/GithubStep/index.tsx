@@ -7,45 +7,37 @@ import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
 import { StepInfo } from '../StepInfo';
 
-import styles from './TwitterStep.module.scss';
+import styles from './GithubStep.module.scss';
 
-export const TwitterStep: FC = () => {
-  const { onNextStep } = React.useContext(StepsContext);
+export const GithubStep: FC = () => {
+  const { onNextStep, setUserData } = React.useContext(StepsContext);
+
+  const onClickGithubAuth = () => {
+    window.open(
+      'http://localhost:3001/auth/github',
+      'Github Auth',
+      'width=500,height=500,status=yes,toolbar=no,menubar=no,location=no'
+    );
+  };
 
   React.useEffect(() => {
-    const cb = (data) => {
-      if (typeof data?.data === 'string') {
-        console.log(JSON.parse(data?.data));
+    const cb = ({ data }) => {
+      if (typeof data === 'string' && data.includes('username')) {
+        setUserData(JSON.parse(data));
+        onNextStep();
       }
     };
-
     window.addEventListener('message', cb);
-
     return () => {
       window.removeEventListener('message', cb);
     };
   }, []);
 
-  const onClickGithubAuth = () => {
-    const win = window.open(
-      'http://localhost:3001/auth/github',
-      'Github Auth',
-      'width=500,height=500,status=yes,toolbar=no,menubar=no,location=no'
-    );
-
-    const timer = setInterval(() => {
-      if (win.closed) {
-        window.clearInterval(timer);
-        onNextStep();
-      }
-    }, 1000);
-  };
-
   return (
     <div className={styles.block}>
       <StepInfo icon="/static/connect.png" title="Do you want import info from Twitter?" />
       <WhiteBlock className={clsx('m-auto mt-40', styles.whiteBlock)}>
-        <div className={styles.avatar}>
+        {/* <div className={styles.avatar}>
           <b>AD</b>
           <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -54,11 +46,11 @@ export const TwitterStep: FC = () => {
               stroke="#D6D6D6"
             />
           </svg>
-        </div>
-        <h2 className="mb-40">Archakov Dennis</h2>
-        <Button onClick={onClickGithubAuth}>
-          <img src="/static/twitter.svg" alt="Twitter logo" className={styles.twitterLogo} />
-          Import from Twitter
+        </div> */}
+        {/* <h2 className="mb-40">Archakov Dennis</h2> */}
+        <Button onClick={onClickGithubAuth} className={clsx(styles.button, 'd-i-flex align-items-center')}>
+          <img className="d-ib mr-10" src="/static/github.svg" />
+          Import from GitHub
           <img className="d-ib ml-10" src="/static/arrow.svg" />
         </Button>
         <div onClick={onNextStep} className="link mt-20 cup d-ib">

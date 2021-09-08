@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import Axios from '../../../core/axios';
+import { Axios } from '../../../core/axios';
 
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
@@ -11,7 +11,6 @@ import styles from './EnterPhoneStep.module.scss';
 
 export const EnterCodeStep: React.FC = () => {
   const router = useRouter();
-
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [codes, setCodes] = React.useState(['', '', '', '']);
@@ -41,7 +40,7 @@ export const EnterCodeStep: React.FC = () => {
     } catch (error) {
       alert('Ошибка при активации!');
     }
-    setIsLoading(false);  
+    setIsLoading(false);
   };
 
   return (

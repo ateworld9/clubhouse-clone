@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from '../../src/core/axios';
+import {Axios} from '../../src/core/axios';
 
 import Link from 'next/link';
 

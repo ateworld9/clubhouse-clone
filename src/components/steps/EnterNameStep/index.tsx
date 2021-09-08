@@ -10,9 +10,9 @@ import { StepInfo } from '../StepInfo';
 import styles from './EnterNameStep.module.scss';
 
 export const EnterNameStep: React.FC = () => {
-  const { onNextStep } = React.useContext(StepsContext);
+  const { userData, setFieldValue, onNextStep } = React.useContext(StepsContext);
 
-  const [fullname, setFullname] = React.useState<string>('');
+  const [fullname, setFullname] = React.useState<string>(userData.fullname || '');
   const nextDisabled = !fullname;
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -21,6 +21,7 @@ export const EnterNameStep: React.FC = () => {
 
   const onClickNextStep = () => {
     if (!nextDisabled) {
+      setFieldValue('fullname', fullname);
       onNextStep();
     }
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Axios from '../../src/core/axios';
+import {Axios} from '../../src/core/axios';
 
 import { Header } from '../../src/components/Header';
 import { BackButton } from '../../src/components/BackButton';
